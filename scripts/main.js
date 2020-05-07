@@ -31,13 +31,11 @@ keys.addEventListener('click', e => {
         if (!action) {
 
             if (displayedNumber === '0') {
-                display.textContent = keyContent;
-            } else if (displayedNumber.endsWith('+') || displayedNumber.endsWith('-') || displayedNumber.endsWith('×') || displayedNumber.endsWith('÷')) {
 
-                display.textContent = displayedNumber + keyContent;
-                calculator.dataset.secondValue = keyContent;
-            
+                display.textContent = keyContent;
+
             } else {
+
                 display.textContent = displayedNumber + keyContent;
             }
 
@@ -45,6 +43,7 @@ keys.addEventListener('click', e => {
 
             calculator.dataset.firstValue = displayedNumber;
             calculator.dataset.operator = action;
+            
 
             let sign = '';
             if(action === 'add') {
@@ -65,12 +64,31 @@ keys.addEventListener('click', e => {
         } else if (action === 'clear') {
 
             display.textContent = '0';
+            firstValue = '';
+            operator = '';
+            secondValue = ''
 
         }  else if (action === 'calculate') {
 
             firstValue = calculator.dataset.firstValue;
             operator = calculator.dataset.operator;
-            secondValue = calculator.dataset.secondValue;
+            
+            let addSing = displayedNumber.indexOf('+');
+            let subSing = displayedNumber.indexOf('-');
+            let mulSing = displayedNumber.indexOf('×');
+            let divSing = displayedNumber.indexOf('÷');
+            if (displayedNumber.includes('+')) {
+                secondValue = displayedNumber.slice((addSing + 1));
+            } else if (displayedNumber.includes('-')) {
+                secondValue =displayedNumber.slice((subSing + 1));
+            } else if (displayedNumber.includes('×')) {
+                secondValue = displayedNumber.slice((mulSing + 1));
+            }  else if (displayedNumber.includes('÷')) {
+                secondValue = displayedNumber.slice((divSing + 1));
+            }
+            
+            
+            
 
             console.log(firstValue);
             console.log(operator);
