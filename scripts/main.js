@@ -33,7 +33,10 @@ keys.addEventListener('click', e => {
             if (displayedNumber === '0') {
                 display.textContent = keyContent;
             } else if (displayedNumber.endsWith('+') || displayedNumber.endsWith('-') || displayedNumber.endsWith('×') || displayedNumber.endsWith('÷')) {
-                display.textContent = keyContent;
+
+                display.textContent = displayedNumber + keyContent;
+                calculator.dataset.secondValue = keyContent;
+            
             } else {
                 display.textContent = displayedNumber + keyContent;
             }
@@ -67,7 +70,7 @@ keys.addEventListener('click', e => {
 
             firstValue = calculator.dataset.firstValue;
             operator = calculator.dataset.operator;
-            secondValue = displayedNumber;
+            secondValue = calculator.dataset.secondValue;
 
             console.log(firstValue);
             console.log(operator);
