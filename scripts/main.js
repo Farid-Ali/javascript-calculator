@@ -1,23 +1,10 @@
+/* Catching the dom element */
 const calculator = document.querySelector('.container');
 const display = document.querySelector('.display');
 const keys = document.querySelector('.keys');
 
-const calculate = (firstValue,operator,secondValue) => {
-    let result = '';
 
-    if (operator === 'add') {
-        result = parseFloat(firstValue) + parseFloat(secondValue);
-    } else if (operator === 'subtract') {
-        result = parseFloat(firstValue) - parseFloat(secondValue);
-    } else if (operator === 'multiply') {
-        result = parseFloat(firstValue) * parseFloat(secondValue);
-    } else if (operator === 'divide') {
-        result = parseFloat(firstValue) / parseFloat(secondValue);
-    }
-
-    return result;
-}
-
+/* Add click events */
 keys.addEventListener('click', e => {
     if (e.target.matches('button')) {
         const key = e.target;
@@ -47,15 +34,16 @@ keys.addEventListener('click', e => {
 
             let sign = '';
             if(action === 'add') {
-                sign = '+';
+                sign = ' + ';
             } else if (action === 'subtract') {
-                sign = '-';
+                sign = ' - ';
             } else if (action === 'multiply') {
-                sign = '×';
+                sign = ' × ';
             } else if (action === 'divide') {
-                sign = '÷';
+                sign = ' ÷ ';
             }
             display.textContent = displayedNumber + sign;
+
 
         } else if (action === 'decimal') {
 
@@ -63,42 +51,23 @@ keys.addEventListener('click', e => {
             
         } else if (action === 'clear') {
 
-            display.textContent = '0';
+            display.textContent = 0;
             firstValue = '';
             operator = '';
             secondValue = ''
 
-        }  else if (action === 'calculate') {
+        } else if (action === 'calculate') {
 
-            firstValue = calculator.dataset.firstValue;
-            operator = calculator.dataset.operator;
-            
-            let addSing = displayedNumber.indexOf('+');
-            let subSing = displayedNumber.indexOf('-');
-            let mulSing = displayedNumber.indexOf('×');
-            let divSing = displayedNumber.indexOf('÷');
-            if (displayedNumber.includes('+')) {
-                secondValue = displayedNumber.slice((addSing + 1));
-            } else if (displayedNumber.includes('-')) {
-                secondValue =displayedNumber.slice((subSing + 1));
-            } else if (displayedNumber.includes('×')) {
-                secondValue = displayedNumber.slice((mulSing + 1));
-            }  else if (displayedNumber.includes('÷')) {
-                secondValue = displayedNumber.slice((divSing + 1));
-            }
-            
-            
-            
+            const modifiedDisplayedNumber = displayedNumber.replace(/×/g, '*');
+            const finalModifiedDisplayedNumber = modifiedDisplayedNumber.replace(/÷/g, '/');
 
-            console.log(firstValue);
-            console.log(operator);
-            console.log(secondValue);
+            display.textContent = (eval(finalModifiedDisplayedNumber)).toFixed(2);
+
+            console.log(displayedNumber)  
             
-
-            display.textContent = calculate(firstValue,operator,secondValue);
-
         }
-
     }
 });
+
+
 
