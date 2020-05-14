@@ -3,6 +3,12 @@ const calculator = document.querySelector('.container');
 const display = document.querySelector('.display');
 const keys = document.querySelector('.keys');
 
+/* Function for calculating the displayed numbers (I'm using 'Function Constructor') */
+
+function calculate(numbers) {
+    return new Function('return ' + numbers)();
+  }
+  
 
 /* Add click events */
 keys.addEventListener('click', e => {
@@ -61,9 +67,7 @@ keys.addEventListener('click', e => {
             const modifiedDisplayedNumber = displayedNumber.replace(/×/g, '*');
             const finalModifiedDisplayedNumber = modifiedDisplayedNumber.replace(/÷/g, '/');
 
-            display.textContent = (eval(finalModifiedDisplayedNumber)).toFixed(2);
-
-            console.log(displayedNumber)  
+            display.textContent = (calculate(finalModifiedDisplayedNumber)).toFixed(2);
             
         }
     }
