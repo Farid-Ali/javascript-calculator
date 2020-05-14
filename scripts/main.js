@@ -67,7 +67,13 @@ keys.addEventListener('click', e => {
             const modifiedDisplayedNumber = displayedNumber.replace(/×/g, '*');
             const finalModifiedDisplayedNumber = modifiedDisplayedNumber.replace(/÷/g, '/');
 
-            display.textContent = (calculate(finalModifiedDisplayedNumber)).toFixed(2);
+            let result = calculate(finalModifiedDisplayedNumber);
+
+            if (result.toString().length > 4) {
+                display.textContent = result.toFixed(2);
+            } else {
+                display.textContent = result;
+            }
             
         }
     }
